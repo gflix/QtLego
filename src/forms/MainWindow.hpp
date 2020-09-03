@@ -2,6 +2,7 @@
 #define FORMS_MAINWINDOW_HPP_
 
 #include <QtWidgets/QMainWindow>
+#include <controllers/BluetoothController.hpp>
 #include <controllers/BluetoothDiscoveryController.hpp>
 
 namespace Ui {
@@ -29,6 +30,7 @@ private:
     Ui::MainWindow* m_ui;
 
     BluetoothDiscoveryController m_bluetoothDiscoveryController;
+    BluetoothController m_bluetoothController;
 
     void fixupUi(void);
 };

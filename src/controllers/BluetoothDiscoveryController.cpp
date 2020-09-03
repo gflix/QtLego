@@ -62,7 +62,11 @@ void BluetoothDiscoveryController::deviceDiscovered(const QBluetoothDeviceInfo &
     {
         if (vendorIdMatches(deviceAddress, acceptedVendor))
         {
-            m_discoveredDevices.append(device);
+            if (!m_discoveredDevices.contains(deviceAddress) ||
+                m_discoveredDevices[deviceAddress].name().isEmpty())
+            {
+                m_discoveredDevices[deviceAddress] = device;
+            }
             break;
         }
     }

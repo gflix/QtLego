@@ -7,7 +7,7 @@ namespace Lego
 {
 
 typedef QList<QBluetoothAddress> QBluetoothAddresses;
-typedef QList<QBluetoothDeviceInfo> QBluetoothDeviceInfos;
+typedef QMap<QBluetoothAddress, QBluetoothDeviceInfo> QBluetoothDeviceInfos;
 
 class BluetoothDiscoveryController: public QObject
 {

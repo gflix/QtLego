@@ -30,15 +30,25 @@ void MainWindow::deviceDiscoveryFinished(void)
     m_ui->btnConnect->setEnabled(true);
     const auto& discoveredDevices = m_bluetoothDiscoveryController.discoveredDevices();
 
+    qInfo() << "MainWindow::deviceDiscoveryFinished(" << discoveredDevices.count() << ")";
     if (discoveredDevices.count() == 1)
     {
+        m_bluetoothController.connectToDevice(discoveredDevices.first());
     }
+    else
+    {
+        for (auto& discoveredDevice: discoveredDevices)
+        {
+            qInfo() << discoveredDevice.address() << " -> " << discoveredDevice.name();
+        }
+    }
+
 }
 
 void MainWindow::fixupUi(void)
 {
     connect(
-        &m_bluetoothDiscoveryController, &BluetoothController::deviceDiscoveryFinished,
+        &m_bluetoothDiscoveryController, &BluetoothDiscoveryController::deviceDiscoveryFinished,
         this, &MainWindow::deviceDiscoveryFinished);
 }
 
