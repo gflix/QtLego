@@ -6,6 +6,7 @@
 namespace Lego
 {
 
+typedef QList<QBluetoothAddress> QBluetoothAddresses;
 typedef QList<QBluetoothDeviceInfo> QBluetoothDeviceInfos;
 
 class BluetoothController: public QObject
@@ -36,6 +37,10 @@ private:
 
     QBluetoothDeviceDiscoveryAgent m_discoveryAgent;
     QBluetoothDeviceInfos m_discoveredDevices;
+
+    static QBluetoothAddresses acceptedVendors;
+
+    static bool vendorIdMatches(const QBluetoothAddress& a, const QBluetoothAddress& b);
 };
 
 } /* namespace Lego */

@@ -1,10 +1,14 @@
 #include <QtCore/QDebug>
 #include <controllers/BluetoothController.hpp>
 
-#define DISCOVERY_TIMEOUT (5000)
+#define DISCOVERY_TIMEOUT (2000)
 
 namespace Lego
 {
+
+QBluetoothAddresses BluetoothController::acceptedVendors = {
+    QBluetoothAddress("90:84:2b:00:00:00"),  // LEGO System A/S
+};
 
 BluetoothController::BluetoothController(QObject* parent):
     QObject(parent),
@@ -33,13 +37,17 @@ BluetoothController::~BluetoothController()
 {
 }
 
+const QBluetoothDeviceInfos& BluetoothController::discoveredDevices(void) const
+{
+    return m_discoveredDevices;
+}
+
 void BluetoothController::startDeviceDiscovery(void)
 {
     if (m_discoveryPending)
     {
         return;
     }
-    qInfo() << "BluetoothController::startDeviceDiscovery()";
 
     m_discoveryPending = true;
     m_discoveredDevices.clear();
@@ -48,19 +56,34 @@ void BluetoothController::startDeviceDiscovery(void)
 
 void BluetoothController::deviceDiscovered(const QBluetoothDeviceInfo &device)
 {
-    qInfo() << "BluetoothController::deviceDiscovered(" << device.name() << ")";
-    m_discoveredDevices.append(device);
+    const auto deviceAddress = device.address();
+
+    for (auto& acceptedVendor: acceptedVendors)
+    {
+        if (vendorIdMatches(deviceAddress, acceptedVendor))
+        {
+            m_discoveredDevices.append(device);
+            break;
+        }
+    }
 }
 
 void BluetoothController::scanError(QBluetoothDeviceDiscoveryAgent::Error error)
 {
-    qWarning() << "BluetoothController::scanError(" << error << ")";
+    m_discoveryPending = false;
+    emit deviceDiscoveryFinished();
 }
 
 void BluetoothController::scanFinished()
 {
     m_discoveryPending = false;
     emit deviceDiscoveryFinished();
+}
+
+bool BluetoothController::vendorIdMatches(const QBluetoothAddress& a, const QBluetoothAddress& b)
+{
+    return
+        (a.toUInt64() & 0xffffff000000) == (b.toUInt64() & 0xffffff000000);
 }
 
 } /* namespace Lego */

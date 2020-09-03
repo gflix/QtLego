@@ -1,3 +1,4 @@
+#include <QtCore/QDebug>
 #include <forms/MainWindow.hpp>
 #include "ui_MainWindow.h"
 
@@ -27,6 +28,11 @@ void MainWindow::btnConnectClicked(void)
 void MainWindow::deviceDiscoveryFinished(void)
 {
     m_ui->btnConnect->setEnabled(true);
+    const auto& discoveredDevices = m_bluetoothController.discoveredDevices();
+
+    if (discoveredDevices.count() == 1)
+    {
+    }
 }
 
 void MainWindow::fixupUi(void)
