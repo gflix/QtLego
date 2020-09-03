@@ -1,16 +1,16 @@
 #include <QtCore/QDebug>
-#include <controllers/BluetoothController.hpp>
+#include <controllers/BluetoothDiscoveryController.hpp>
 
 #define DISCOVERY_TIMEOUT (2000)
 
 namespace Lego
 {
 
-QBluetoothAddresses BluetoothController::acceptedVendors = {
+QBluetoothAddresses BluetoothDiscoveryController::acceptedVendors = {
     QBluetoothAddress("90:84:2b:00:00:00"),  // LEGO System A/S
 };
 
-BluetoothController::BluetoothController(QObject* parent):
+BluetoothDiscoveryController::BluetoothDiscoveryController(QObject* parent):
     QObject(parent),
     m_discoveryPending(false),
     m_discoveryAgent(this)
@@ -19,30 +19,30 @@ BluetoothController::BluetoothController(QObject* parent):
 
     connect(
         &m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered,
-        this, &BluetoothController::deviceDiscovered);
+        this, &BluetoothDiscoveryController::deviceDiscovered);
     connect(
         &m_discoveryAgent, static_cast<void (QBluetoothDeviceDiscoveryAgent::*)(QBluetoothDeviceDiscoveryAgent::Error)>
             (&QBluetoothDeviceDiscoveryAgent::error),
-        this, &BluetoothController::scanError);
+        this, &BluetoothDiscoveryController::scanError);
 
     connect(
         &m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::finished,
-        this, &BluetoothController::scanFinished);
+        this, &BluetoothDiscoveryController::scanFinished);
     connect(
         &m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::canceled,
-        this, &BluetoothController::scanFinished);
+        this, &BluetoothDiscoveryController::scanFinished);
 }
 
-BluetoothController::~BluetoothController()
+BluetoothDiscoveryController::~BluetoothDiscoveryController()
 {
 }
 
-const QBluetoothDeviceInfos& BluetoothController::discoveredDevices(void) const
+const QBluetoothDeviceInfos& BluetoothDiscoveryController::discoveredDevices(void) const
 {
     return m_discoveredDevices;
 }
 
-void BluetoothController::startDeviceDiscovery(void)
+void BluetoothDiscoveryController::startDeviceDiscovery(void)
 {
     if (m_discoveryPending)
     {
@@ -54,7 +54,7 @@ void BluetoothController::startDeviceDiscovery(void)
     m_discoveryAgent.start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 }
 
-void BluetoothController::deviceDiscovered(const QBluetoothDeviceInfo &device)
+void BluetoothDiscoveryController::deviceDiscovered(const QBluetoothDeviceInfo &device)
 {
     const auto deviceAddress = device.address();
 
@@ -68,19 +68,19 @@ void BluetoothController::deviceDiscovered(const QBluetoothDeviceInfo &device)
     }
 }
 
-void BluetoothController::scanError(QBluetoothDeviceDiscoveryAgent::Error error)
+void BluetoothDiscoveryController::scanError(QBluetoothDeviceDiscoveryAgent::Error error)
 {
     m_discoveryPending = false;
     emit deviceDiscoveryFinished();
 }
 
-void BluetoothController::scanFinished()
+void BluetoothDiscoveryController::scanFinished()
 {
     m_discoveryPending = false;
     emit deviceDiscoveryFinished();
 }
 
-bool BluetoothController::vendorIdMatches(const QBluetoothAddress& a, const QBluetoothAddress& b)
+bool BluetoothDiscoveryController::vendorIdMatches(const QBluetoothAddress& a, const QBluetoothAddress& b)
 {
     return
         (a.toUInt64() & 0xffffff000000) == (b.toUInt64() & 0xffffff000000);

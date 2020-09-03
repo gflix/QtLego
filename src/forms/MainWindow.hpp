@@ -2,7 +2,7 @@
 #define FORMS_MAINWINDOW_HPP_
 
 #include <QtWidgets/QMainWindow>
-#include <controllers/BluetoothController.hpp>
+#include <controllers/BluetoothDiscoveryController.hpp>
 
 namespace Ui {
     class MainWindow;
@@ -28,7 +28,7 @@ protected slots:
 private:
     Ui::MainWindow* m_ui;
 
-    BluetoothController m_bluetoothController;
+    BluetoothDiscoveryController m_bluetoothDiscoveryController;
 
     void fixupUi(void);
 };

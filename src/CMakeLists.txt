@@ -3,7 +3,7 @@ configure_file(common/Config.hpp.in common/Config.hpp)
 # list of source files which are compiled either for the release binary or for linking against the unittests
 set(
     LIBRARY_SOURCE_FILES
-    controllers/BluetoothController.cpp
+    controllers/BluetoothDiscoveryController.cpp
 )
 
 # compile static library from the following source files

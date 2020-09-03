@@ -1,5 +1,5 @@
-#ifndef CONTROLLERS_BLUETOOTHCONTROLLER_HPP_
-#define CONTROLLERS_BLUETOOTHCONTROLLER_HPP_
+#ifndef CONTROLLERS_BLUETOOTHDISCOVERYCONTROLLER_HPP_
+#define CONTROLLERS_BLUETOOTHDISCOVERYCONTROLLER_HPP_
 
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 
@@ -9,13 +9,13 @@ namespace Lego
 typedef QList<QBluetoothAddress> QBluetoothAddresses;
 typedef QList<QBluetoothDeviceInfo> QBluetoothDeviceInfos;
 
-class BluetoothController: public QObject
+class BluetoothDiscoveryController: public QObject
 {
     Q_OBJECT
 
 public:
-    explicit BluetoothController(QObject* parent = nullptr);
-    ~BluetoothController();
+    explicit BluetoothDiscoveryController(QObject* parent = nullptr);
+    ~BluetoothDiscoveryController();
 
     const QBluetoothDeviceInfos& discoveredDevices(void) const;
 
@@ -45,4 +45,4 @@ private:
 
 } /* namespace Lego */
 
-#endif /* CONTROLLERS_BLUETOOTHCONTROLLER_HPP_ */
+#endif /* CONTROLLERS_BLUETOOTHDISCOVERYCONTROLLER_HPP_ */
