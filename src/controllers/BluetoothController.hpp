@@ -6,6 +6,8 @@
 namespace Lego
 {
 
+typedef QList<QBluetoothDeviceInfo> QBluetoothDeviceInfos;
+
 class BluetoothController: public QObject
 {
     Q_OBJECT
@@ -14,11 +16,26 @@ public:
     explicit BluetoothController(QObject* parent = nullptr);
     ~BluetoothController();
 
+    const QBluetoothDeviceInfos& discoveredDevices(void) const;
+
+public slots:
+    void startDeviceDiscovery(void);
+
+signals:
+    void deviceDiscoveryFinished(void);
+
 protected:
 
-private:
-    QBluetoothDeviceDiscoveryAgent m_discoveryAgent;
+protected slots:
+    void deviceDiscovered(const QBluetoothDeviceInfo &device);
+    void scanError(QBluetoothDeviceDiscoveryAgent::Error error);
+    void scanFinished();
 
+private:
+    bool m_discoveryPending;
+
+    QBluetoothDeviceDiscoveryAgent m_discoveryAgent;
+    QBluetoothDeviceInfos m_discoveredDevices;
 };
 
 } /* namespace Lego */
