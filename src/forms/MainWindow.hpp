@@ -21,10 +21,14 @@ public:
 
 protected:
 
-private:
-    Ui::MainWindow* ui;
+protected slots:
+    void btnConnectClicked(void);
+    void deviceDiscoveryFinished(void);
 
-    BluetoothController bluetoothController;
+private:
+    Ui::MainWindow* m_ui;
+
+    BluetoothController m_bluetoothController;
 
     void fixupUi(void);
 };

@@ -6,20 +6,34 @@ namespace Lego
 
 MainWindow::MainWindow(QWidget* parent):
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    bluetoothController(this)
+    m_ui(new Ui::MainWindow),
+    m_bluetoothController(this)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
     fixupUi();
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete m_ui;
+}
+
+void MainWindow::btnConnectClicked(void)
+{
+    m_ui->btnConnect->setEnabled(false);
+    m_bluetoothController.startDeviceDiscovery();
+}
+
+void MainWindow::deviceDiscoveryFinished(void)
+{
+    m_ui->btnConnect->setEnabled(true);
 }
 
 void MainWindow::fixupUi(void)
 {
+    connect(
+        &m_bluetoothController, &BluetoothController::deviceDiscoveryFinished,
+        this, &MainWindow::deviceDiscoveryFinished);
 }
 
 } /* namespace Lego */
