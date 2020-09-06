@@ -14,6 +14,9 @@ BluetoothController::BluetoothController(QObject* parent):
     m_foundService(false),
     m_leService(nullptr)
 {
+    connect(
+        this, &BluetoothController::connected,
+        this, &BluetoothController::enableNotifications);
 }
 
 BluetoothController::~BluetoothController()
@@ -139,15 +142,45 @@ void BluetoothController::serviceStateChanged(QLowEnergyService::ServiceState st
     {
         qInfo() << "Service fully discovered";
 
-        auto characteristic = m_leService->characteristic(m_legoCharacteristic);
-        if (!characteristic.isValid())
+        m_leCharacteristic = m_leService->characteristic(m_legoCharacteristic);
+        if (!m_leCharacteristic.isValid())
         {
             return;
         }
 
-        auto value = QByteArray::fromHex("0800813211510002");
-        m_leService->writeCharacteristic(characteristic, value);
+        emit connected();
     }
+}
+
+void BluetoothController::enableNotifications(void)
+{
+    qInfo() << "BluetoothController::enableNotifications()";
+
+    auto notification = m_leCharacteristic.descriptor(QBluetoothUuid::ClientCharacteristicConfiguration);
+    if (!notification.isValid())
+    {
+        qWarning() << "Notification descriptor not found!";
+    }
+
+    connect(
+        m_leService, &QLowEnergyService::characteristicChanged,
+        this, &BluetoothController::characteristicChanged);
+
+    m_leService->writeDescriptor(notification, QByteArray::fromHex("0100"));
+}
+
+void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic &characteristic, const QByteArray &newValue)
+{
+    if (!characteristic.isValid())
+    {
+        qInfo() << "BluetoothController::characteristicChanged(invalid)";
+    }
+    if (characteristic != m_leCharacteristic)
+    {
+        qInfo() << "BluetoothController::characteristicChanged(different:" << characteristic.uuid() << ")";
+    }
+
+    qInfo() << "BluetoothController::characteristicChanged(" << newValue.toHex() << ")";
 }
 
 } /* namespace Lego */

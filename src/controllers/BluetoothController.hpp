@@ -17,6 +17,9 @@ public:
     void connectToDevice(const QBluetoothDeviceInfo& device);
     void disconnectFromDevice(void);
 
+signals:
+    void connected(void);
+
 protected:
 
 protected slots:
@@ -25,10 +28,14 @@ protected slots:
 
     void serviceStateChanged(QLowEnergyService::ServiceState state);
 
+    void enableNotifications(void);
+    void characteristicChanged(const QLowEnergyCharacteristic &characteristic, const QByteArray &newValue);
+
 private:
     QLowEnergyController* m_leController;
     bool m_foundService;
     QLowEnergyService* m_leService;
+    QLowEnergyCharacteristic m_leCharacteristic;
 
     static const QBluetoothUuid m_legoService;
     static const QBluetoothUuid m_legoCharacteristic;
