@@ -8,7 +8,10 @@
 namespace Lego
 {
 
-QPair<int, int> extractFrameMetrics(const QByteArray& data);
+typedef QPair<int, int> FrameMetrics;
+
+FrameMetrics extractFrameMetrics(const QByteArray& data);
+void checkFrameMetrics(const QByteArray& data, const FrameMetrics& frameMetrics);
 LeMessage decodeLeMessage(const QByteArray& data);
 
 } /* namespace Lego */

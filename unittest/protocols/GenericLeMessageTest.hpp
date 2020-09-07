@@ -12,6 +12,15 @@ private slots:
     void throwsWhenExtractingFrameMetricsFromOneByteQByteArrayIndicatingSecondSizeByte();
     void extractsFrameMetricsFromQByteArrayWithOneByteSize();
     void extractsFrameMetricsFromQByteArrayWithTwoByteSize();
+
+    void throwsWhenCheckingFrameMetricsWithTooShortMessage();
+    void throwsWhenCheckingFrameMetricsWithTooLongMessage();
+    void throwsWhenCheckingFrameMetricsWithInvalidHeaderLength();
+
+    void throwsWhenDecodingLeMessageWithInvalidHubId();
+
+    void decodesHubAttachedIoMessage();
+    void decodesHubDetachedIoMessage();
 };
 
 #endif /* UNITTEST_PROTOCOLS_GENERICLEMESSAGETEST_HPP_ */

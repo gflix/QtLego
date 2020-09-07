@@ -6,7 +6,13 @@ set(
     controllers/BluetoothController.cpp
     controllers/BluetoothDiscoveryController.cpp
     models/GenericLeMessage.cpp
+    models/GenericLeMessageHubAttachedIo.cpp
+    models/LeMessageHubAttachedIo.cpp
+    models/LeMessageHubDetachedIo.cpp
     protocols/GenericLeMessage.cpp
+    protocols/GenericLeMessageHubAttachedIo.cpp
+    protocols/LeMessageHubAttachedIo.cpp
+    protocols/LeMessageHubDetachedIo.cpp
 )
 
 # compile static library from the following source files

@@ -1,9 +1,10 @@
 #include <protocols/GenericLeMessage.hpp>
+#include <protocols/GenericLeMessageHubAttachedIo.hpp>
 
 namespace Lego
 {
 
-QPair<int, int> extractFrameMetrics(const QByteArray& data)
+FrameMetrics extractFrameMetrics(const QByteArray& data)
 {
     auto dataSize = data.size();
     if (dataSize == 0)
@@ -23,12 +24,49 @@ QPair<int, int> extractFrameMetrics(const QByteArray& data)
         frameSize |= static_cast<unsigned char>(data[1]) << 7;
     }
 
-    return QPair<int, int>(frameSize, sizeBytes);
+    return FrameMetrics(frameSize, sizeBytes);
+}
+
+void checkFrameMetrics(const QByteArray& data, const FrameMetrics& frameMetrics)
+{
+    auto dataSize = data.size();
+
+    if (dataSize < frameMetrics.first)
+    {
+        throw std::invalid_argument("could not decode LE message as the data is shorter than indicated");
+    }
+    if (dataSize > frameMetrics.first)
+    {
+        throw std::invalid_argument("could not decode LE message as the data is longer than indicated");
+    }
+
+    if (dataSize < (frameMetrics.second + 2))
+    {
+        throw std::invalid_argument("could not decode LE message as the header is invalid");
+    }
 }
 
 LeMessage decodeLeMessage(const QByteArray& data)
 {
     auto frameMetrics = extractFrameMetrics(data);
+    checkFrameMetrics(data, frameMetrics);
+
+    int hubId = data[frameMetrics.second];
+    if (hubId != 0)
+    {
+        throw std::domain_error("could not decode LE message as a hub ID other than 0 is not yet supported");
+    }
+
+    auto payload = data.mid(frameMetrics.second + 2);
+    int messageType = static_cast<unsigned char>(data[frameMetrics.second + 1]);
+
+    switch (messageType)
+    {
+        case 4:
+            return decodeLeMessageHubAttachedIo(payload);
+        default:
+            break;
+    }
 
     throw std::runtime_error("decoder not yet implemented");
 }
