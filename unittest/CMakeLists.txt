@@ -1,0 +1,27 @@
+# list of source files which are compiled for unit testing
+set(
+    UNITTEST_SOURCE_FILES
+    protocols/GenericLeMessageTest.cpp
+)
+
+# compile static library from the following source files
+add_library(
+    unittests
+    EXCLUDE_FROM_ALL
+    STATIC
+    ${UNITTEST_SOURCE_FILES}
+)
+
+# add the root of this source tree to the include path
+target_include_directories(
+    unittests
+    PRIVATE ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/src ${CMAKE_SOURCE_DIR}
+)
+
+# compile and link dependencies (both include paths and linker options are derived from this)
+target_link_libraries(
+    unittests
+    Qt5::Widgets
+    Qt5::Bluetooth
+    Threads::Threads
+)

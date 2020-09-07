@@ -54,3 +54,22 @@ install(
     qt-lego
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+add_library(
+    testable
+    EXCLUDE_FROM_ALL
+    STATIC
+    ${LIBRARY_SOURCE_FILES}
+)
+
+target_include_directories(
+    testable
+    PRIVATE ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/src
+)
+
+target_link_libraries(
+    testable
+    Qt5::Widgets
+    Qt5::Bluetooth
+    Threads::Threads
+)
