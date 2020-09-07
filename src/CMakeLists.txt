@@ -5,6 +5,8 @@ set(
     LIBRARY_SOURCE_FILES
     controllers/BluetoothController.cpp
     controllers/BluetoothDiscoveryController.cpp
+    models/GenericLeMessage.cpp
+    protocols/GenericLeMessage.cpp
 )
 
 # compile static library from the following source files
