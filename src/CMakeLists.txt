@@ -13,6 +13,7 @@ set(
     protocols/GenericLeMessageHubAttachedIo.cpp
     protocols/LeMessageHubAttachedIo.cpp
     protocols/LeMessageHubDetachedIo.cpp
+    utils/Converter.cpp
 )
 
 # compile static library from the following source files
