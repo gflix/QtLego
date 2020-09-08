@@ -17,7 +17,7 @@ LeMessage decodeLeMessageHubAttachedIo(int port, const QByteArray& data)
     LeMessage leMessage { message };
 
     message->port = port;
-    message->ioType = Converter::byteArrayToUnsignedShortLe(data.mid(0, 2));
+    message->ioType = static_cast<IoType>(Converter::byteArrayToUnsignedShortLe(data.mid(0, 2)));
 
     return leMessage;
 }
