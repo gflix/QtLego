@@ -1,4 +1,5 @@
 #include <controllers/BluetoothController.hpp>
+#include <protocols/GenericLeMessage.hpp>
 
 namespace Lego
 {
@@ -180,7 +181,13 @@ void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic &
         qInfo() << "BluetoothController::characteristicChanged(different:" << characteristic.uuid() << ")";
     }
 
-    qInfo() << "BluetoothController::characteristicChanged(" << newValue.toHex() << ")";
+    QString dump;
+    QTextStream stream(&dump);
+    stream << decodeLeMessage(newValue);
+    qInfo() <<
+        "BluetoothController::characteristicChanged(" <<
+        newValue.toHex() << ":" <<
+        dump << ")";
 }
 
 } /* namespace Lego */
