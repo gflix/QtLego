@@ -1,6 +1,7 @@
 #ifndef MODELS_GENERICLEMESSAGE_HPP_
 #define MODELS_GENERICLEMESSAGE_HPP_
 
+#include <QtCore/QTextStream>
 #include <QtCore/QSharedPointer>
 
 namespace Lego
@@ -9,9 +10,13 @@ namespace Lego
 struct GenericLeMessage
 {
     virtual ~GenericLeMessage() = default;
+
+    virtual void dump(QTextStream& stream) const;
 };
 
 typedef QSharedPointer<GenericLeMessage> LeMessage;
+
+QTextStream& operator<<(QTextStream& stream, const LeMessage& leMessage);
 
 template<typename T>
 T* cast(LeMessage leMessage)

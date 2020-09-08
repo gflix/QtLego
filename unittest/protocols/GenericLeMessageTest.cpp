@@ -84,21 +84,27 @@ TEST(GenericLeMessageTest, throwsWhenDecodingLeMessageWithInvalidHubId)
 TEST(GenericLeMessageTest, decodesHubAttachedIoMessage)
 {
     // setup
-    auto data = QByteArray::fromHex("0500040001");
+    auto data = QByteArray::fromHex("07 00 04 01 01 2000");
+    auto expected = QString("LeMessageHubAttachedIo[port=1,ioType=32]");
 
     // exercise
-    auto actual = decodeLeMessage(data);
+    QString actual;
+    QTextStream stream(&actual);
+    stream << decodeLeMessage(data);
 
-    EXPECT_TRUE(cast<LeMessageHubAttachedIo>(actual));
+    EXPECT_EQ(expected.toStdString(), actual.toStdString());
 }
 
 TEST(GenericLeMessageTest, decodesHubDetachedIoMessage)
 {
     // setup
     auto data = QByteArray::fromHex("0500040000");
+    auto expected = QString("LeMessageHubDetachedIo[port=0]");
 
     // exercise
-    auto actual = decodeLeMessage(data);
+    QString actual;
+    QTextStream stream(&actual);
+    stream << decodeLeMessage(data);
 
-    EXPECT_TRUE(cast<LeMessageHubDetachedIo>(actual));
+    EXPECT_EQ(expected.toStdString(), actual.toStdString());
 }

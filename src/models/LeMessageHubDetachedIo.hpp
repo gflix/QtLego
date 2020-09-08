@@ -9,6 +9,8 @@ namespace Lego
 struct LeMessageHubDetachedIo: public GenericLeMessageHubAttachedIo
 {
     LeMessageHubDetachedIo();
+
+    void dump(QTextStream& stream) const override;
 };
 
 } /* namespace Lego */
