@@ -10,6 +10,9 @@ class Converter
 {
 public:
     static unsigned char byteArrayToUnsignedChar(const QByteArray& data);
+    static char byteArrayToChar(const QByteArray& data);
+
+    static unsigned short byteArrayToUnsignedShortLe(const QByteArray& data);
 };
 
 } /* namespace Lego */

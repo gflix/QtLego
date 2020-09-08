@@ -2,6 +2,7 @@
 set(
     UNITTEST_SOURCE_FILES
     protocols/GenericLeMessageTest.cpp
+    utils/ConverterTest.cpp
 
     gtest_main.cpp
 )
