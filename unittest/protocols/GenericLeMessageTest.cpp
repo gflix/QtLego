@@ -84,8 +84,8 @@ TEST(GenericLeMessageTest, throwsWhenDecodingLeMessageWithInvalidHubId)
 TEST(GenericLeMessageTest, decodesHubAttachedIoMessage)
 {
     // setup
-    auto data = QByteArray::fromHex("07 00 04 01 01 2000");
-    auto expected = QString("LeMessageHubAttachedIo[port=1,ioType=32]");
+    auto data = QByteArray::fromHex("07 00 04 01 01 2500");
+    auto expected = QString("LeMessageHubAttachedIo[port=1,ioType=COLOR_DISTANCE_SENSOR]");
 
     // exercise
     QString actual;

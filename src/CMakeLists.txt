@@ -7,13 +7,16 @@ set(
     controllers/BluetoothDiscoveryController.cpp
     models/GenericLeMessage.cpp
     models/GenericLeMessageHubAttachedIo.cpp
+    models/IoType.cpp
     models/LeMessageHubAttachedIo.cpp
     models/LeMessageHubDetachedIo.cpp
     protocols/GenericLeMessage.cpp
     protocols/GenericLeMessageHubAttachedIo.cpp
+    protocols/IoType.cpp
     protocols/LeMessageHubAttachedIo.cpp
     protocols/LeMessageHubDetachedIo.cpp
     utils/Converter.cpp
+    utils/EnumMapper.cpp
 )
 
 # compile static library from the following source files

@@ -4,7 +4,7 @@ namespace Lego
 {
 
 LeMessageHubAttachedIo::LeMessageHubAttachedIo():
-    ioType(0)
+    ioType(IoType::UNKNOWN)
 {
 }
 

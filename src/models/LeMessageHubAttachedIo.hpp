@@ -2,6 +2,7 @@
 #define MODELS_LEMESSAGEHUBATTACHEDIO_HPP_
 
 #include <models/GenericLeMessageHubAttachedIo.hpp>
+#include <models/IoType.hpp>
 
 namespace Lego
 {
@@ -10,7 +11,7 @@ struct LeMessageHubAttachedIo: public GenericLeMessageHubAttachedIo
 {
     LeMessageHubAttachedIo();
 
-    int ioType;
+    IoType ioType;
 
     void dump(QTextStream& stream) const override;
 };

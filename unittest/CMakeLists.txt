@@ -3,6 +3,7 @@ set(
     UNITTEST_SOURCE_FILES
     models/GenericLeMessageTest.cpp
     protocols/GenericLeMessageTest.cpp
+    protocols/IoType.cpp
     utils/ConverterTest.cpp
 
     gtest_main.cpp
