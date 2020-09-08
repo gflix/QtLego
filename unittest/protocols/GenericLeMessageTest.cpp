@@ -1,29 +1,29 @@
+#include <gtest/gtest.h>
 #include <models/LeMessageHubDetachedIo.hpp>
 #include <models/LeMessageHubAttachedIo.hpp>
 #include <protocols/GenericLeMessage.hpp>
-#include <unittest/protocols/GenericLeMessageTest.hpp>
 
 using namespace Lego;
 
-void GenericLeMessageTest::throwsWhenExtractingFrameMetricsFromEmptyQByteArray()
+TEST(GenericLeMessageTest, throwsWhenExtractingFrameMetricsFromEmptyQByteArray)
 {
     // setup
     auto data = QByteArray();
 
     // exercise and verify
-    QVERIFY_EXCEPTION_THROWN(extractFrameMetrics(data), std::invalid_argument);
+    EXPECT_THROW(extractFrameMetrics(data), std::invalid_argument);
 }
 
-void GenericLeMessageTest::throwsWhenExtractingFrameMetricsFromOneByteQByteArrayIndicatingSecondSizeByte()
+TEST(GenericLeMessageTest, throwsWhenExtractingFrameMetricsFromOneByteQByteArrayIndicatingSecondSizeByte)
 {
     // setup
     auto data = QByteArray::fromHex("80");
 
     // exercise and verify
-    QVERIFY_EXCEPTION_THROWN(extractFrameMetrics(data), std::invalid_argument);
+    EXPECT_THROW(extractFrameMetrics(data), std::invalid_argument);
 }
 
-void GenericLeMessageTest::extractsFrameMetricsFromQByteArrayWithOneByteSize()
+TEST(GenericLeMessageTest, extractsFrameMetricsFromQByteArrayWithOneByteSize)
 {
     // setup
     auto data = QByteArray::fromHex("0c");
@@ -31,10 +31,10 @@ void GenericLeMessageTest::extractsFrameMetricsFromQByteArrayWithOneByteSize()
     QPair<int, int> expected { 12, 1 };
 
     // exercise and verify
-    QCOMPARE(extractFrameMetrics(data), expected);
+    EXPECT_EQ(expected, extractFrameMetrics(data));
 }
 
-void GenericLeMessageTest::extractsFrameMetricsFromQByteArrayWithTwoByteSize()
+TEST(GenericLeMessageTest, extractsFrameMetricsFromQByteArrayWithTwoByteSize)
 {
     // setup
     auto data = QByteArray::fromHex("8201");
@@ -42,46 +42,46 @@ void GenericLeMessageTest::extractsFrameMetricsFromQByteArrayWithTwoByteSize()
     QPair<int, int> expected { 130, 2 };
 
     // exercise and verify
-    QCOMPARE(extractFrameMetrics(data), expected);
+    EXPECT_EQ(expected, extractFrameMetrics(data));
 }
 
-void GenericLeMessageTest::throwsWhenCheckingFrameMetricsWithTooShortMessage()
+TEST(GenericLeMessageTest, throwsWhenCheckingFrameMetricsWithTooShortMessage)
 {
     // setup
     auto data = QByteArray::fromHex("02");
 
     // exercise and verify
-    QVERIFY_EXCEPTION_THROWN(decodeLeMessage(data), std::invalid_argument);
+    EXPECT_THROW(decodeLeMessage(data), std::invalid_argument);
 }
 
-void GenericLeMessageTest::throwsWhenCheckingFrameMetricsWithTooLongMessage()
+TEST(GenericLeMessageTest, throwsWhenCheckingFrameMetricsWithTooLongMessage)
 {
     // setup
     auto data = QByteArray::fromHex("020000");
 
     // exercise and verify
-    QVERIFY_EXCEPTION_THROWN(decodeLeMessage(data), std::invalid_argument);
+    EXPECT_THROW(decodeLeMessage(data), std::invalid_argument);
 }
 
-void GenericLeMessageTest::throwsWhenCheckingFrameMetricsWithInvalidHeaderLength()
+TEST(GenericLeMessageTest, throwsWhenCheckingFrameMetricsWithInvalidHeaderLength)
 {
     // setup
     auto data = QByteArray::fromHex("0200");
 
     // exercise and verify
-    QVERIFY_EXCEPTION_THROWN(decodeLeMessage(data), std::invalid_argument);
+    EXPECT_THROW(decodeLeMessage(data), std::invalid_argument);
 }
 
-void GenericLeMessageTest::throwsWhenDecodingLeMessageWithInvalidHubId()
+TEST(GenericLeMessageTest, throwsWhenDecodingLeMessageWithInvalidHubId)
 {
     // setup
     auto data = QByteArray::fromHex("030100");
 
     // exercise and verify
-    QVERIFY_EXCEPTION_THROWN(decodeLeMessage(data), std::domain_error);
+    EXPECT_THROW(decodeLeMessage(data), std::domain_error);
 }
 
-void GenericLeMessageTest::decodesHubAttachedIoMessage()
+TEST(GenericLeMessageTest, decodesHubAttachedIoMessage)
 {
     // setup
     auto data = QByteArray::fromHex("0500040001");
@@ -89,10 +89,10 @@ void GenericLeMessageTest::decodesHubAttachedIoMessage()
     // exercise
     auto actual = decodeLeMessage(data);
 
-    QVERIFY(cast<LeMessageHubAttachedIo>(actual));
+    EXPECT_TRUE(cast<LeMessageHubAttachedIo>(actual));
 }
 
-void GenericLeMessageTest::decodesHubDetachedIoMessage()
+TEST(GenericLeMessageTest, decodesHubDetachedIoMessage)
 {
     // setup
     auto data = QByteArray::fromHex("0500040000");
@@ -100,5 +100,5 @@ void GenericLeMessageTest::decodesHubDetachedIoMessage()
     // exercise
     auto actual = decodeLeMessage(data);
 
-    QVERIFY(cast<LeMessageHubDetachedIo>(actual));
+    EXPECT_TRUE(cast<LeMessageHubDetachedIo>(actual));
 }

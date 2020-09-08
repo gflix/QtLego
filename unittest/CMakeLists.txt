@@ -2,6 +2,8 @@
 set(
     UNITTEST_SOURCE_FILES
     protocols/GenericLeMessageTest.cpp
+
+    gtest_main.cpp
 )
 
 # compile static library from the following source files
@@ -15,7 +17,7 @@ add_library(
 # add the root of this source tree to the include path
 target_include_directories(
     unittests
-    PRIVATE ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/src ${CMAKE_SOURCE_DIR}
+    PRIVATE ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/src ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/external/gtest/include
 )
 
 # compile and link dependencies (both include paths and linker options are derived from this)

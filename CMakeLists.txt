@@ -24,20 +24,34 @@ include(GNUInstallDirs)
 add_subdirectory(src)
 add_subdirectory(unittest)
 
+set(
+    WITH_UNITTESTS FALSE CACHE
+    BOOL "Add target gtest for compiling unittests, requires GTest sources in external/gtest"
+)
+
+if(WITH_UNITTESTS)
 add_executable(
-    qtest
+    gtest
     EXCLUDE_FROM_ALL
-    unittest/QTest.cpp
+    ${LIBRARY_SOURCE_FILES}
+    external/gtest/src/gtest-all.cc
 )
 
 target_include_directories(
-    qtest
-    PRIVATE ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/src ${CMAKE_SOURCE_DIR}
+    gtest
+    PRIVATE ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/external/gtest ${CMAKE_SOURCE_DIR}/external/gtest/include
 )
 
 target_link_libraries(
-    qtest
-    Qt5::Test
+    gtest
+    -Wl,--whole-archive
     unittests
     testable
+    -Wl,--no-whole-archive
+    Threads::Threads
+    -coverage
 )
+
+enable_testing()
+add_test(gtest gtest)
+endif(WITH_UNITTESTS)

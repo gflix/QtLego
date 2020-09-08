@@ -74,6 +74,12 @@ target_include_directories(
     PRIVATE ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/src
 )
 
+target_compile_options(
+    testable
+    PRIVATE
+    -O2 -g -fprofile-arcs -ftest-coverage -coverage
+)
+
 target_link_libraries(
     testable
     Qt5::Widgets
