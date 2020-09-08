@@ -175,10 +175,12 @@ void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic &
     if (!characteristic.isValid())
     {
         qInfo() << "BluetoothController::characteristicChanged(invalid)";
+        return;
     }
     if (characteristic != m_leCharacteristic)
     {
         qInfo() << "BluetoothController::characteristicChanged(different:" << characteristic.uuid() << ")";
+        return;
     }
 
     QString dump;
