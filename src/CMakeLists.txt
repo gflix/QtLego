@@ -5,6 +5,15 @@ set(
     LIBRARY_SOURCE_FILES
     controllers/BluetoothController.cpp
     controllers/BluetoothDiscoveryController.cpp
+    models/GenericLeMessage.cpp
+    models/GenericLeMessageHubAttachedIo.cpp
+    models/LeMessageHubAttachedIo.cpp
+    models/LeMessageHubDetachedIo.cpp
+    protocols/GenericLeMessage.cpp
+    protocols/GenericLeMessageHubAttachedIo.cpp
+    protocols/LeMessageHubAttachedIo.cpp
+    protocols/LeMessageHubDetachedIo.cpp
+    utils/Converter.cpp
 )
 
 # compile static library from the following source files
@@ -51,4 +60,29 @@ install(
     TARGETS
     qt-lego
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+add_library(
+    testable
+    EXCLUDE_FROM_ALL
+    STATIC
+    ${LIBRARY_SOURCE_FILES}
+)
+
+target_include_directories(
+    testable
+    PRIVATE ${CMAKE_SOURCE_DIR}/src ${CMAKE_BINARY_DIR}/src
+)
+
+target_compile_options(
+    testable
+    PRIVATE
+    -O2 -g -fprofile-arcs -ftest-coverage -coverage
+)
+
+target_link_libraries(
+    testable
+    Qt5::Widgets
+    Qt5::Bluetooth
+    Threads::Threads
 )
