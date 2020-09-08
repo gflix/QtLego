@@ -1,6 +1,7 @@
 #include <protocols/GenericLeMessageHubAttachedIo.hpp>
 #include <protocols/LeMessageHubAttachedIo.hpp>
 #include <protocols/LeMessageHubDetachedIo.hpp>
+#include <utils/Converter.hpp>
 
 namespace Lego
 {
@@ -14,8 +15,8 @@ LeMessage decodeLeMessageHubAttachedIo(const QByteArray& data)
     }
 
     auto payload = data.mid(2);
-    int port = static_cast<unsigned char>(data[0]);
-    int event = static_cast<unsigned char>(data[1]);
+    int port = Converter::byteArrayToUnsignedChar(data.mid(0, 1));
+    int event = Converter::byteArrayToUnsignedChar(data.mid(1, 1));
 
     switch (event)
     {
