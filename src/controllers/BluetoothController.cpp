@@ -187,11 +187,20 @@ void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic& 
 
     QString dump;
     QTextStream stream(&dump);
-    stream << decodeLeMessage(newValue);
-    qInfo() <<
-        "BluetoothController::characteristicChanged(" <<
-        newValue.toHex() << ":" <<
-        dump << ")";
+    try
+    {
+        stream << decodeLeMessage(newValue);
+        qInfo() <<
+            "BluetoothController::characteristicChanged(" <<
+            newValue.toHex() << ":" <<
+            dump << ")";
+    }
+    catch(const std::exception& e)
+    {
+        qWarning() << "BluetoothController::characteristicChanged(" <<
+            newValue.toHex() << ":" <<
+            e.what() << ")";
+    }
 }
 
 } /* namespace Lego */
