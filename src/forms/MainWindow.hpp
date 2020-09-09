@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include <controllers/BluetoothController.hpp>
 #include <controllers/BluetoothDiscoveryController.hpp>
+#include <widgets/GeneralInformation.hpp>
 
 namespace Ui {
     class MainWindow;
@@ -18,7 +19,7 @@ class MainWindow: public QMainWindow
 
 public:
     explicit MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
+    virtual ~MainWindow();
 
 protected:
 
@@ -28,6 +29,7 @@ protected slots:
 
 private:
     Ui::MainWindow* m_ui;
+    GeneralInformation* m_generalInformation;
 
     BluetoothDiscoveryController m_bluetoothDiscoveryController;
     BluetoothController m_bluetoothController;

@@ -1,5 +1,6 @@
 #include <protocols/GenericLeMessage.hpp>
 #include <protocols/GenericLeMessageHubAttachedIo.hpp>
+#include <protocols/GenericLeMessageHubProperties.hpp>
 #include <utils/Converter.hpp>
 
 namespace Lego
@@ -22,7 +23,7 @@ FrameMetrics extractFrameMetrics(const QByteArray& data)
             throw std::invalid_argument("could not extract two byte frame size value from byte array");
         }
         ++sizeBytes;
-        frameSize |= Converter::byteArrayToUnsignedChar(data.mid(1, 1)) << 7;
+        frameSize = (frameSize & 0x7f) | Converter::byteArrayToUnsignedChar(data.mid(1, 1)) << 7;
     }
 
     return FrameMetrics(frameSize, sizeBytes);
@@ -63,6 +64,8 @@ LeMessage decodeLeMessage(const QByteArray& data)
 
     switch (messageType)
     {
+        case 1:
+            return decodeLeMessageHubProperties(payload);
         case 4:
             return decodeLeMessageHubAttachedIo(payload);
         default:

@@ -28,7 +28,7 @@ LeMessage decodeLeMessageHubAttachedIo(const QByteArray& data)
             break;
     }
 
-    throw std::domain_error("invalid hub attachement i/o event");
+    throw std::domain_error("unsupported hub attached i/o event");
 }
 
 } /* namespace Lego */

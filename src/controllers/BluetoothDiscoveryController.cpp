@@ -8,6 +8,8 @@ namespace Lego
 
 QBluetoothAddresses BluetoothDiscoveryController::acceptedVendors = {
     QBluetoothAddress("90:84:2b:00:00:00"),  // LEGO System A/S
+    QBluetoothAddress("00:16:53:00:00:00"),  // LEGO System A/S IE Electronics Division
+    QBluetoothAddress("60:77:71:00:00:00"),  // Texas Instruments
 };
 
 BluetoothDiscoveryController::BluetoothDiscoveryController(QObject* parent):

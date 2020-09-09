@@ -19,6 +19,7 @@ public:
 
 signals:
     void connected(void);
+    void messageReceived(const QByteArray& data);
 
 protected:
 
@@ -29,7 +30,7 @@ protected slots:
     void serviceStateChanged(QLowEnergyService::ServiceState state);
 
     void enableNotifications(void);
-    void characteristicChanged(const QLowEnergyCharacteristic &characteristic, const QByteArray &newValue);
+    void characteristicChanged(const QLowEnergyCharacteristic& characteristic, const QByteArray& newValue);
 
 private:
     QLowEnergyController* m_leController;

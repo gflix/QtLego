@@ -35,4 +35,9 @@ unsigned short Converter::byteArrayToUnsignedShortLe(const QByteArray& data)
         static_cast<unsigned char>(data[0]);
 }
 
+QString Converter::byteArrayToString(const QByteArray& data)
+{
+    return QString::fromUtf8(data);
+}
+
 } /* namespace Lego */

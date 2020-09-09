@@ -2,6 +2,7 @@
 #define UTILS_CONVERTER_HPP_
 
 #include <QtCore/QByteArray>
+#include <QtCore/QString>
 
 namespace Lego
 {
@@ -13,6 +14,8 @@ public:
     static char byteArrayToChar(const QByteArray& data);
 
     static unsigned short byteArrayToUnsignedShortLe(const QByteArray& data);
+
+    static QString byteArrayToString(const QByteArray& data);
 };
 
 } /* namespace Lego */

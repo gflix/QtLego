@@ -47,9 +47,16 @@ void MainWindow::deviceDiscoveryFinished(void)
 
 void MainWindow::fixupUi(void)
 {
+    m_generalInformation = new GeneralInformation();
+    m_ui->cGeneralInformation->addWidget(m_generalInformation);
+
     connect(
         &m_bluetoothDiscoveryController, &BluetoothDiscoveryController::deviceDiscoveryFinished,
         this, &MainWindow::deviceDiscoveryFinished);
+
+    connect(
+        &m_bluetoothController, &BluetoothController::messageReceived,
+        m_generalInformation, &GeneralInformation::messageReceived);
 }
 
 } /* namespace Lego */

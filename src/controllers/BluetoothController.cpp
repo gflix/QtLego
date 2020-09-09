@@ -150,6 +150,10 @@ void BluetoothController::serviceStateChanged(QLowEnergyService::ServiceState st
         }
 
         emit connected();
+
+        m_leService->writeCharacteristic(m_leCharacteristic, QByteArray::fromHex("0500010605"));
+        m_leService->writeCharacteristic(m_leCharacteristic, QByteArray::fromHex("0500010105"));
+        m_leService->writeCharacteristic(m_leCharacteristic, QByteArray::fromHex("0500010b05"));
     }
 }
 
@@ -170,7 +174,7 @@ void BluetoothController::enableNotifications(void)
     m_leService->writeDescriptor(notification, QByteArray::fromHex("0100"));
 }
 
-void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic &characteristic, const QByteArray &newValue)
+void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic& characteristic, const QByteArray& newValue)
 {
     if (!characteristic.isValid())
     {
@@ -183,13 +187,24 @@ void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic &
         return;
     }
 
+    emit messageReceived(newValue);
+
     QString dump;
     QTextStream stream(&dump);
-    stream << decodeLeMessage(newValue);
-    qInfo() <<
-        "BluetoothController::characteristicChanged(" <<
-        newValue.toHex() << ":" <<
-        dump << ")";
+    try
+    {
+        stream << decodeLeMessage(newValue);
+        qInfo() <<
+            "BluetoothController::characteristicChanged(" <<
+            newValue.toHex() << ":" <<
+            dump << ")";
+    }
+    catch(const std::exception& e)
+    {
+        qWarning() << "BluetoothController::characteristicChanged(" <<
+            newValue.toHex() << ":" <<
+            e.what() << ")";
+    }
 }
 
 } /* namespace Lego */
