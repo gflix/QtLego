@@ -1,4 +1,5 @@
 #include <QtCore/QDebug>
+#include <models/LeMessageHubPropertiesUpdateAdvertisingName.hpp>
 #include <models/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
 #include <protocols/GenericLeMessage.hpp>
 #include <widgets/GeneralInformation.hpp>
@@ -23,9 +24,13 @@ void GeneralInformation::messageReceived(const QByteArray& data)
     try
     {
         auto leMessage = decodeLeMessage(data);
-        if (auto updateBatteryLevel = tryCast<LeMessageHubPropertiesUpdateBatteryLevel>(leMessage))
+        if (auto message = tryCast<LeMessageHubPropertiesUpdateAdvertisingName>(leMessage))
         {
-            m_ui->lbBatteryPercentage->setText(QString("%1%").arg(updateBatteryLevel->batteryLevel));
+            m_ui->lbName->setText(message->advertisingName);
+        }
+        if (auto message = tryCast<LeMessageHubPropertiesUpdateBatteryLevel>(leMessage))
+        {
+            m_ui->lbBatteryPercentage->setText(QString("%1%").arg(message->batteryLevel));
         }
     }
     catch(const std::exception&)
