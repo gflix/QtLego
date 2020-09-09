@@ -170,7 +170,7 @@ void BluetoothController::enableNotifications(void)
     m_leService->writeDescriptor(notification, QByteArray::fromHex("0100"));
 }
 
-void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic &characteristic, const QByteArray &newValue)
+void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic& characteristic, const QByteArray& newValue)
 {
     if (!characteristic.isValid())
     {
