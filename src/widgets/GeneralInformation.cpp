@@ -1,4 +1,6 @@
 #include <QtCore/QDebug>
+#include <models/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
+#include <protocols/GenericLeMessage.hpp>
 #include <widgets/GeneralInformation.hpp>
 #include "ui_GeneralInformation.h"
 
@@ -18,7 +20,17 @@ GeneralInformation::~GeneralInformation()
 
 void GeneralInformation::messageReceived(const QByteArray& data)
 {
-    qInfo() << "GeneralInformation::messageReceived()";
+    try
+    {
+        auto leMessage = decodeLeMessage(data);
+        if (auto updateBatteryLevel = tryCast<LeMessageHubPropertiesUpdateBatteryLevel>(leMessage))
+        {
+            m_ui->lbBatteryPercentage->setText(QString("%1%").arg(updateBatteryLevel->batteryLevel));
+        }
+    }
+    catch(const std::exception&)
+    {
+    }
 }
 
 } /* namespace Lego */
