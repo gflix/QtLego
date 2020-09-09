@@ -19,6 +19,7 @@ public:
 
 signals:
     void connected(void);
+    void messageReceived(const QByteArray& data);
 
 protected:
 

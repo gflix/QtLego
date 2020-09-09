@@ -183,6 +183,8 @@ void BluetoothController::characteristicChanged(const QLowEnergyCharacteristic& 
         return;
     }
 
+    emit messageReceived(newValue);
+
     QString dump;
     QTextStream stream(&dump);
     stream << decodeLeMessage(newValue);
