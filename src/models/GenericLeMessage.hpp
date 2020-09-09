@@ -30,6 +30,12 @@ T* cast(LeMessage leMessage)
     return castedPointer;
 }
 
+template<typename T>
+T* tryCast(LeMessage leMessage)
+{
+    return dynamic_cast<T*>(leMessage.data());
+}
+
 } /* namespace Lego */
 
 #endif /* MODELS_GENERICLEMESSAGE_HPP_ */
