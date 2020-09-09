@@ -34,12 +34,23 @@ TEST(GenericLeMessageTest, extractsFrameMetricsFromQByteArrayWithOneByteSize)
     EXPECT_EQ(expected, extractFrameMetrics(data));
 }
 
-TEST(GenericLeMessageTest, extractsFrameMetricsFromQByteArrayWithTwoByteSize)
+TEST(GenericLeMessageTest, extractsFrameMetricsFromQByteArrayWithTwoByteSizeI)
 {
     // setup
     auto data = QByteArray::fromHex("8201");
 
     QPair<int, int> expected { 130, 2 };
+
+    // exercise and verify
+    EXPECT_EQ(expected, extractFrameMetrics(data));
+}
+
+TEST(GenericLeMessageTest, extractsFrameMetricsFromQByteArrayWithTwoByteSizeII)
+{
+    // setup
+    auto data = QByteArray::fromHex("8302");
+
+    QPair<int, int> expected { 259, 2 };
 
     // exercise and verify
     EXPECT_EQ(expected, extractFrameMetrics(data));
