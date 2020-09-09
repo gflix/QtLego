@@ -150,6 +150,8 @@ void BluetoothController::serviceStateChanged(QLowEnergyService::ServiceState st
         }
 
         emit connected();
+
+        m_leService->writeCharacteristic(m_leCharacteristic, QByteArray::fromHex("0500010605"));
     }
 }
 
