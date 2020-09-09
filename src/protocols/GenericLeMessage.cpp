@@ -1,5 +1,6 @@
 #include <protocols/GenericLeMessage.hpp>
 #include <protocols/GenericLeMessageHubAttachedIo.hpp>
+#include <protocols/GenericLeMessageHubProperties.hpp>
 #include <utils/Converter.hpp>
 
 namespace Lego
@@ -63,6 +64,8 @@ LeMessage decodeLeMessage(const QByteArray& data)
 
     switch (messageType)
     {
+        case 1:
+            return decodeLeMessageHubProperties(payload);
         case 4:
             return decodeLeMessageHubAttachedIo(payload);
         default:
