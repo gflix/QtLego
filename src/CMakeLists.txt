@@ -11,6 +11,7 @@ set(
     models/IoType.cpp
     models/LeMessageHubAttachedIo.cpp
     models/LeMessageHubDetachedIo.cpp
+    models/LeMessageHubPropertiesUpdateAdvertisingName.cpp
     models/LeMessageHubPropertiesUpdateBatteryLevel.cpp
     protocols/GenericLeMessage.cpp
     protocols/GenericLeMessageHubAttachedIo.cpp
@@ -18,6 +19,7 @@ set(
     protocols/IoType.cpp
     protocols/LeMessageHubAttachedIo.cpp
     protocols/LeMessageHubDetachedIo.cpp
+    protocols/LeMessageHubPropertiesUpdateAdvertisingName.cpp
     protocols/LeMessageHubPropertiesUpdateBatteryLevel.cpp
     utils/Converter.cpp
     utils/EnumMapper.cpp

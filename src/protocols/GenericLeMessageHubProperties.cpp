@@ -1,4 +1,5 @@
 #include <protocols/GenericLeMessageHubProperties.hpp>
+#include <protocols/LeMessageHubPropertiesUpdateAdvertisingName.hpp>
 #include <protocols/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
 #include <utils/Converter.hpp>
 
@@ -17,9 +18,15 @@ LeMessage decodeLeMessageHubProperties(const QByteArray& data)
     int property = Converter::byteArrayToUnsignedChar(data.mid(0, 1));
     int operation = Converter::byteArrayToUnsignedChar(data.mid(1, 1));
 
-    if (property == 6 && operation == 6)
+    if (operation == 6)
     {
-        return decodeLeMessageHubPropertiesUpdateBatteryLevel(property, operation, payload);
+        switch (property)
+        {
+            case 1:
+                return decodeLeMessageHubPropertiesUpdateAdvertisingName(property, operation, payload);
+            case 6:
+                return decodeLeMessageHubPropertiesUpdateBatteryLevel(property, operation, payload);
+        }
     }
 
     throw std::domain_error("unsupported hub properties messages");
