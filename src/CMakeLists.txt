@@ -17,6 +17,7 @@ set(
     protocols/LeMessageHubDetachedIo.cpp
     utils/Converter.cpp
     utils/EnumMapper.cpp
+    widgets/GeneralInformation.cpp
 )
 
 # compile static library from the following source files
