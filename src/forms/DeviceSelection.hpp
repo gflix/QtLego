@@ -2,7 +2,7 @@
 #define FORMS_DEVICESELECTION_HPP_
 
 #include <QtWidgets/QDialog>
-#include <controllers/BluetoothDiscoveryController.hpp>
+#include <models/QBluetoothDeviceInfos.hpp>
 #include <models/lists/BluetoothDeviceList.hpp>
 
 namespace Ui {

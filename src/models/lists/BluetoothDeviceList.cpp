@@ -1,3 +1,4 @@
+#include <QtBluetooth/QBluetoothAddress>
 #include <models/lists/BluetoothDeviceList.hpp>
 
 namespace Lego

@@ -3,12 +3,11 @@
 
 #include <QtCore/QMap>
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
+#include <models/QBluetoothAddresses.hpp>
+#include <models/QBluetoothDeviceInfos.hpp>
 
 namespace Lego
 {
-
-typedef QList<QBluetoothAddress> QBluetoothAddresses;
-typedef QMap<QBluetoothAddress, QBluetoothDeviceInfo> QBluetoothDeviceInfos;
 
 class BluetoothDiscoveryController: public QObject
 {

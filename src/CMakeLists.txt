@@ -11,6 +11,8 @@ set(
     models/LeMessageHubDetachedIo.cpp
     models/LeMessageHubPropertiesUpdateAdvertisingName.cpp
     models/LeMessageHubPropertiesUpdateBatteryLevel.cpp
+    models/QBluetoothAddresses.cpp
+    models/QBluetoothDeviceInfos.cpp
     protocols/GenericLeMessage.cpp
     protocols/GenericLeMessageHubAttachedIo.cpp
     protocols/GenericLeMessageHubProperties.cpp

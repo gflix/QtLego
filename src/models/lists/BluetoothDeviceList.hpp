@@ -2,7 +2,7 @@
 #define MODELS_LISTS_BLUETOOTHDEVICELIST_HPP_
 
 #include <QtCore/QAbstractListModel>
-#include <controllers/BluetoothDiscoveryController.hpp>
+#include <models/QBluetoothDeviceInfos.hpp>
 
 namespace Lego
 {
