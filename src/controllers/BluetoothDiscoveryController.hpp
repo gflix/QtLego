@@ -1,6 +1,7 @@
 #ifndef CONTROLLERS_BLUETOOTHDISCOVERYCONTROLLER_HPP_
 #define CONTROLLERS_BLUETOOTHDISCOVERYCONTROLLER_HPP_
 
+#include <QtCore/QMap>
 #include <QtBluetooth/QBluetoothDeviceDiscoveryAgent>
 
 namespace Lego

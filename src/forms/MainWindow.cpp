@@ -1,4 +1,5 @@
 #include <QtCore/QDebug>
+#include <forms/DeviceSelection.hpp>
 #include <forms/MainWindow.hpp>
 #include "ui_MainWindow.h"
 
@@ -41,6 +42,9 @@ void MainWindow::deviceDiscoveryFinished(void)
         {
             qInfo() << discoveredDevice.address() << " -> " << discoveredDevice.name();
         }
+
+        DeviceSelection deviceSelection { discoveredDevices };
+        deviceSelection.exec();
     }
 
 }
