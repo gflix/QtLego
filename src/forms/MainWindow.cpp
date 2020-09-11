@@ -38,13 +38,11 @@ void MainWindow::deviceDiscoveryFinished(void)
     }
     else
     {
-        for (auto& discoveredDevice: discoveredDevices)
-        {
-            qInfo() << discoveredDevice.address() << " -> " << discoveredDevice.name();
-        }
-
         DeviceSelection deviceSelection { discoveredDevices };
-        deviceSelection.exec();
+        if (deviceSelection.exec() == QDialog::Accepted)
+        {
+            m_bluetoothController.connectToDevice(deviceSelection.selectedDevice());
+        }
     }
 
 }

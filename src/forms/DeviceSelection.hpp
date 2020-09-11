@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QDialog>
 #include <controllers/BluetoothDiscoveryController.hpp>
+#include <models/lists/BluetoothDeviceList.hpp>
 
 namespace Ui {
     class DeviceSelection;
@@ -16,16 +17,19 @@ class DeviceSelection: public QDialog
     Q_OBJECT
 
 public:
-    DeviceSelection(
+    explicit DeviceSelection(
         const QBluetoothDeviceInfos& discoveredDevices,
         QWidget* parent = nullptr,
         Qt::WindowFlags f = Qt::WindowFlags());
     virtual ~DeviceSelection();
 
+    QBluetoothDeviceInfo selectedDevice(void) const;
+
 protected:
 
 private:
     Ui::DeviceSelection* m_ui;
+    BluetoothDeviceList m_deviceList;
 
 };
 
