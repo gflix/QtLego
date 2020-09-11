@@ -3,8 +3,6 @@ configure_file(common/Config.hpp.in common/Config.hpp)
 # list of source files which are compiled either for the release binary or for linking against the unittests
 set(
     LIBRARY_SOURCE_FILES
-    controllers/BluetoothController.cpp
-    controllers/BluetoothDiscoveryController.cpp
     models/GenericLeMessage.cpp
     models/GenericLeMessageHubAttachedIo.cpp
     models/GenericLeMessageHubProperties.cpp
@@ -23,7 +21,6 @@ set(
     protocols/LeMessageHubPropertiesUpdateBatteryLevel.cpp
     utils/Converter.cpp
     utils/EnumMapper.cpp
-    widgets/GeneralInformation.cpp
 )
 
 # compile static library from the following source files
@@ -50,10 +47,13 @@ target_link_libraries(
 add_executable(
     qt-lego
     QtLego.cpp
+    controllers/BluetoothController.cpp
+    controllers/BluetoothDiscoveryController.cpp
     models/lists/BluetoothDeviceList.cpp
     forms/DeviceSelection.cpp
     forms/MainWindow.cpp
     forms/MainWindow.ui
+    widgets/GeneralInformation.cpp
 )
 
 # add the root of this source tree to the include path
