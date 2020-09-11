@@ -1,4 +1,5 @@
 #include <QtCore/QDebug>
+#include <forms/DeviceSelection.hpp>
 #include <forms/MainWindow.hpp>
 #include "ui_MainWindow.h"
 
@@ -30,16 +31,16 @@ void MainWindow::deviceDiscoveryFinished(void)
     m_ui->btnConnect->setEnabled(true);
     const auto& discoveredDevices = m_bluetoothDiscoveryController.discoveredDevices();
 
-    qInfo() << "MainWindow::deviceDiscoveryFinished(" << discoveredDevices.count() << ")";
     if (discoveredDevices.count() == 1)
     {
         m_bluetoothController.connectToDevice(discoveredDevices.first());
     }
     else
     {
-        for (auto& discoveredDevice: discoveredDevices)
+        DeviceSelection deviceSelection { discoveredDevices };
+        if (deviceSelection.exec() == QDialog::Accepted)
         {
-            qInfo() << discoveredDevice.address() << " -> " << discoveredDevice.name();
+            m_bluetoothController.connectToDevice(deviceSelection.selectedDevice());
         }
     }
 

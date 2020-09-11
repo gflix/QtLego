@@ -50,6 +50,8 @@ target_link_libraries(
 add_executable(
     qt-lego
     QtLego.cpp
+    models/lists/BluetoothDeviceList.cpp
+    forms/DeviceSelection.cpp
     forms/MainWindow.cpp
     forms/MainWindow.ui
 )
