@@ -3,11 +3,16 @@
 
 #include <QtCore/QByteArray>
 #include <models/GenericLeMessage.hpp>
+#include <models/HubProperty.hpp>
+#include <models/HubPropertyOperation.hpp>
 
 namespace Lego
 {
 
-LeMessage decodeLeMessageHubPropertiesUpdateBatteryLevel(int property, int operation, const QByteArray& data);
+LeMessage decodeLeMessageHubPropertiesUpdateBatteryLevel(
+    HubProperty property,
+    HubPropertyOperation operation,
+    const QByteArray& data);
 
 } /* namespace Lego */
 

@@ -2,6 +2,9 @@
 #define WIDGETS_GENERALINFORMATION_HPP_
 
 #include <QtWidgets/QGroupBox>
+#include <models/LeMessageHubPropertiesUpdateAdvertisingName.hpp>
+#include <models/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
+#include <models/LeMessageHubPropertiesUpdateButton.hpp>
 
 namespace Ui {
     class GeneralInformation;
@@ -26,6 +29,12 @@ protected:
 private:
     Ui::GeneralInformation* m_ui;
 
+    void processLeMessageHubPropertiesUpdateAdvertisingName(
+        const LeMessageHubPropertiesUpdateAdvertisingName& message);
+    void processLeMessageHubPropertiesUpdateBatteryLevel(
+        const LeMessageHubPropertiesUpdateBatteryLevel& message);
+    void processLeMessageHubPropertiesUpdateButton(
+        const LeMessageHubPropertiesUpdateButton& message);
 };
 
 } /* namespace Lego */

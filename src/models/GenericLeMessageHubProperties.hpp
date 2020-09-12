@@ -2,6 +2,8 @@
 #define MODELS_GENERICLEMESSAGEHUBPROPERTIES_HPP_
 
 #include <models/GenericLeMessage.hpp>
+#include <models/HubProperty.hpp>
+#include <models/HubPropertyOperation.hpp>
 
 namespace Lego
 {
@@ -10,8 +12,8 @@ struct GenericLeMessageHubProperties: public GenericLeMessage
 {
     GenericLeMessageHubProperties();
 
-    int property;
-    int operation;
+    HubProperty property;
+    HubPropertyOperation operation;
 };
 
 } /* namespace Lego */

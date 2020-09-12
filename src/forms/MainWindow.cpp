@@ -1,4 +1,5 @@
 #include <QtCore/QDebug>
+#include <QtWidgets/QMessageBox>
 #include <forms/DeviceSelection.hpp>
 #include <forms/MainWindow.hpp>
 #include "ui_MainWindow.h"
@@ -31,7 +32,15 @@ void MainWindow::deviceDiscoveryFinished(void)
     m_ui->btnConnect->setEnabled(true);
     const auto& discoveredDevices = m_bluetoothDiscoveryController.discoveredDevices();
 
-    if (discoveredDevices.count() == 1)
+    if (discoveredDevices.empty())
+    {
+        QMessageBox::warning(
+            this,
+            "No device found",
+            "No suitable device found! "
+            "Make sure the device is turned on and has the pairing mode enabled.");
+    }
+    else if (discoveredDevices.count() == 1)
     {
         m_bluetoothController.connectToDevice(discoveredDevices.first());
     }

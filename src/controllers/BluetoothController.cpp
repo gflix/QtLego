@@ -137,6 +137,16 @@ void BluetoothController::disconnectFromService(void)
     m_leService = nullptr;
 }
 
+void BluetoothController::writeLegoCharacteristic(const QByteArray& data)
+{
+    if (!m_leService || !m_leCharacteristic.isValid())
+    {
+        throw std::runtime_error("bluetooth LE service or LEGO charactistic are invalid");
+    }
+
+    m_leService->writeCharacteristic(m_leCharacteristic, data);
+}
+
 void BluetoothController::serviceStateChanged(QLowEnergyService::ServiceState state)
 {
     if (state == QLowEnergyService::ServiceDiscovered)
@@ -151,9 +161,10 @@ void BluetoothController::serviceStateChanged(QLowEnergyService::ServiceState st
 
         emit connected();
 
-        m_leService->writeCharacteristic(m_leCharacteristic, QByteArray::fromHex("0500010605"));
-        m_leService->writeCharacteristic(m_leCharacteristic, QByteArray::fromHex("0500010105"));
-        m_leService->writeCharacteristic(m_leCharacteristic, QByteArray::fromHex("0500010b05"));
+        writeLegoCharacteristic(QByteArray::fromHex("0500010605"));  // request battery level
+        writeLegoCharacteristic(QByteArray::fromHex("0500010105"));  // request advertised name
+        writeLegoCharacteristic(QByteArray::fromHex("0500010b05"));  // request device type
+        writeLegoCharacteristic(QByteArray::fromHex("0500010202"));  // enable button updates
     }
 }
 

@@ -1,6 +1,7 @@
 #include <protocols/GenericLeMessageHubProperties.hpp>
 #include <protocols/LeMessageHubPropertiesUpdateAdvertisingName.hpp>
 #include <protocols/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
+#include <protocols/LeMessageHubPropertiesUpdateButton.hpp>
 #include <utils/Converter.hpp>
 
 namespace Lego
@@ -15,17 +16,19 @@ LeMessage decodeLeMessageHubProperties(const QByteArray& data)
     }
 
     auto payload = data.mid(2);
-    int property = Converter::byteArrayToUnsignedChar(data.mid(0, 1));
-    int operation = Converter::byteArrayToUnsignedChar(data.mid(1, 1));
+    auto property = static_cast<HubProperty>(Converter::byteArrayToUnsignedChar(data.mid(0, 1)));
+    auto operation = static_cast<HubPropertyOperation>(Converter::byteArrayToUnsignedChar(data.mid(1, 1)));
 
-    if (operation == 6)
+    if (operation == HubPropertyOperation::UPDATE)
     {
         switch (property)
         {
-            case 1:
+            case HubProperty::ADVERTISED_NAME:
                 return decodeLeMessageHubPropertiesUpdateAdvertisingName(property, operation, payload);
-            case 6:
+            case HubProperty::BATTERY_LEVEL:
                 return decodeLeMessageHubPropertiesUpdateBatteryLevel(property, operation, payload);
+            case HubProperty::BUTTON:
+                return decodeLeMessageHubPropertiesUpdateButton(property, operation, payload);
         }
     }
 

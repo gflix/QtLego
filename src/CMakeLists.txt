@@ -6,21 +6,27 @@ set(
     models/GenericLeMessage.cpp
     models/GenericLeMessageHubAttachedIo.cpp
     models/GenericLeMessageHubProperties.cpp
+    models/HubProperty.cpp
+    models/HubPropertyOperation.cpp
     models/IoType.cpp
     models/LeMessageHubAttachedIo.cpp
     models/LeMessageHubDetachedIo.cpp
     models/LeMessageHubPropertiesUpdateAdvertisingName.cpp
     models/LeMessageHubPropertiesUpdateBatteryLevel.cpp
+    models/LeMessageHubPropertiesUpdateButton.cpp
     models/QBluetoothAddresses.cpp
     models/QBluetoothDeviceInfos.cpp
     protocols/GenericLeMessage.cpp
     protocols/GenericLeMessageHubAttachedIo.cpp
     protocols/GenericLeMessageHubProperties.cpp
+    protocols/HubProperty.cpp
+    protocols/HubPropertyOperation.cpp
     protocols/IoType.cpp
     protocols/LeMessageHubAttachedIo.cpp
     protocols/LeMessageHubDetachedIo.cpp
     protocols/LeMessageHubPropertiesUpdateAdvertisingName.cpp
     protocols/LeMessageHubPropertiesUpdateBatteryLevel.cpp
+    protocols/LeMessageHubPropertiesUpdateButton.cpp
     utils/Converter.cpp
     utils/EnumMapper.cpp
 )
