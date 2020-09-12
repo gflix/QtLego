@@ -4,7 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include <controllers/BluetoothController.hpp>
 #include <controllers/BluetoothDiscoveryController.hpp>
-#include <widgets/GeneralInformation.hpp>
+#include <forms/GeneralInformation.hpp>
 
 namespace Ui {
     class MainWindow;
@@ -26,6 +26,7 @@ protected:
 protected slots:
     void btnConnectClicked(void);
     void deviceDiscoveryFinished(void);
+    void deviceConnected(void);
 
 private:
     Ui::MainWindow* m_ui;
@@ -35,6 +36,7 @@ private:
     BluetoothController m_bluetoothController;
 
     void fixupUi(void);
+    void destroyChildDialogs(void);
 };
 
 } /* namespace Lego */
