@@ -1,6 +1,4 @@
 #include <QtCore/QDebug>
-#include <models/LeMessageHubPropertiesUpdateAdvertisingName.hpp>
-#include <models/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
 #include <protocols/GenericLeMessage.hpp>
 #include <widgets/GeneralInformation.hpp>
 #include "ui_GeneralInformation.h"
@@ -26,16 +24,28 @@ void GeneralInformation::messageReceived(const QByteArray& data)
         auto leMessage = decodeLeMessage(data);
         if (auto message = tryCast<LeMessageHubPropertiesUpdateAdvertisingName>(leMessage))
         {
-            m_ui->lbName->setText(message->advertisingName);
+            processLeMessageHubPropertiesUpdateAdvertisingName(*message);
         }
-        if (auto message = tryCast<LeMessageHubPropertiesUpdateBatteryLevel>(leMessage))
+        else if (auto message = tryCast<LeMessageHubPropertiesUpdateBatteryLevel>(leMessage))
         {
-            m_ui->lbBatteryPercentage->setText(QString("%1%").arg(message->batteryLevel));
+            processLeMessageHubPropertiesUpdateBatteryLevel(*message);
         }
     }
     catch(const std::exception&)
     {
     }
+}
+
+void GeneralInformation::processLeMessageHubPropertiesUpdateAdvertisingName(
+    const LeMessageHubPropertiesUpdateAdvertisingName& message)
+{
+    m_ui->lbName->setText(message.advertisingName);
+}
+
+void GeneralInformation::processLeMessageHubPropertiesUpdateBatteryLevel(
+    const LeMessageHubPropertiesUpdateBatteryLevel& message)
+{
+    m_ui->lbBatteryPercentage->setText(QString("%1%").arg(message.batteryLevel));
 }
 
 } /* namespace Lego */
