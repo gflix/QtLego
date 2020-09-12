@@ -1,14 +1,13 @@
-#include <QtCore/QDebug>
 #include <protocols/GenericLeMessage.hpp>
 #include <protocols/SystemType.hpp>
-#include <widgets/GeneralInformation.hpp>
+#include <forms/GeneralInformation.hpp>
 #include "ui_GeneralInformation.h"
 
 namespace Lego
 {
 
 GeneralInformation::GeneralInformation(QWidget* parent):
-    QGroupBox(parent),
+    GenericChildDialog(parent),
     m_ui(new Ui::GeneralInformation)
 {
     m_ui->setupUi(this);

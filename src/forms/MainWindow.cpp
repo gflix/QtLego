@@ -10,6 +10,7 @@ namespace Lego
 MainWindow::MainWindow(QWidget* parent):
     QMainWindow(parent),
     m_ui(new Ui::MainWindow),
+    m_generalInformation(nullptr),
     m_bluetoothDiscoveryController(this)
 {
     m_ui->setupUi(this);
@@ -18,12 +19,15 @@ MainWindow::MainWindow(QWidget* parent):
 
 MainWindow::~MainWindow()
 {
+    destroyChildDialogs();
     delete m_ui;
 }
 
 void MainWindow::btnConnectClicked(void)
 {
+    destroyChildDialogs();
     m_ui->btnConnect->setEnabled(false);
+    m_bluetoothController.disconnectFromDevice();
     m_bluetoothDiscoveryController.startDeviceDiscovery();
 }
 
@@ -55,18 +59,35 @@ void MainWindow::deviceDiscoveryFinished(void)
 
 }
 
-void MainWindow::fixupUi(void)
+void MainWindow::deviceConnected(void)
 {
-    m_generalInformation = new GeneralInformation();
-    m_ui->cGeneralInformation->addWidget(m_generalInformation);
+    destroyChildDialogs();
 
-    connect(
-        &m_bluetoothDiscoveryController, &BluetoothDiscoveryController::deviceDiscoveryFinished,
-        this, &MainWindow::deviceDiscoveryFinished);
-
+    m_generalInformation = new GeneralInformation(this);
     connect(
         &m_bluetoothController, &BluetoothController::messageReceived,
         m_generalInformation, &GeneralInformation::messageReceived);
+    m_generalInformation->show();
+}
+
+void MainWindow::fixupUi(void)
+{
+    connect(
+        &m_bluetoothDiscoveryController, &BluetoothDiscoveryController::deviceDiscoveryFinished,
+        this, &MainWindow::deviceDiscoveryFinished);
+    connect(
+        &m_bluetoothController, &BluetoothController::connected,
+        this, &MainWindow::deviceConnected);
+}
+
+void MainWindow::destroyChildDialogs(void)
+{
+    if (m_generalInformation)
+    {
+        m_generalInformation->close();
+        delete m_generalInformation;
+        m_generalInformation = nullptr;
+    }
 }
 
 } /* namespace Lego */

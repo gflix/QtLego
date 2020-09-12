@@ -1,7 +1,7 @@
-#ifndef WIDGETS_GENERALINFORMATION_HPP_
-#define WIDGETS_GENERALINFORMATION_HPP_
+#ifndef FORMS_GENERALINFORMATION_HPP_
+#define FORMS_GENERALINFORMATION_HPP_
 
-#include <QtWidgets/QGroupBox>
+#include <forms/GenericChildDialog.hpp>
 #include <models/LeMessageHubPropertiesUpdateAdvertisingName.hpp>
 #include <models/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
 #include <models/LeMessageHubPropertiesUpdateButton.hpp>
@@ -14,7 +14,7 @@ namespace Ui {
 namespace Lego
 {
 
-class GeneralInformation: public QGroupBox
+class GeneralInformation: public GenericChildDialog
 {
     Q_OBJECT
 
@@ -42,4 +42,4 @@ private:
 
 } /* namespace Lego */
 
-#endif /* WIDGETS_GENERALINFORMATION_HPP_ */
+#endif /* FORMS_GENERALINFORMATION_HPP_ */

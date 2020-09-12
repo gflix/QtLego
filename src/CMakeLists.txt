@@ -63,9 +63,9 @@ add_executable(
     controllers/BluetoothDiscoveryController.cpp
     models/lists/BluetoothDeviceList.cpp
     forms/DeviceSelection.cpp
+    forms/GeneralInformation.cpp
+    forms/GenericChildDialog.cpp
     forms/MainWindow.cpp
-    forms/MainWindow.ui
-    widgets/GeneralInformation.cpp
 )
 
 # add the root of this source tree to the include path

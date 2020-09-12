@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>178</width>
+    <height>93</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,6 +17,12 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QPushButton" name="btnConnect">
+      <property name="minimumSize">
+       <size>
+        <width>160</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="text">
        <string>Connect...</string>
       </property>
@@ -25,9 +31,6 @@
       </property>
      </widget>
     </item>
-    <item>
-     <layout class="QVBoxLayout" name="cGeneralInformation"/>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -35,7 +38,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>178</width>
      <height>24</height>
     </rect>
    </property>
