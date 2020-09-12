@@ -78,10 +78,16 @@ void BluetoothController::disconnectFromDevice(void)
     m_leController = nullptr;
 }
 
+void BluetoothController::sendMessage(const QByteArray& data)
+{
+    if (m_leService && m_leCharacteristic.isValid())
+    {
+        writeLegoCharacteristic(data);
+    }
+}
+
 void BluetoothController::serviceDiscovered(const QBluetoothUuid& uuid)
 {
-    qInfo() << "BluetoothController::serviceDiscovered(" << uuid << ")";
-
     if (uuid == m_legoService)
     {
         m_foundService = true;
@@ -90,12 +96,13 @@ void BluetoothController::serviceDiscovered(const QBluetoothUuid& uuid)
 
 void BluetoothController::scanFinished()
 {
-    qInfo() << "MainWindow::scanFinished()";
-
     if (m_foundService)
     {
-        qInfo() << "Using service" << m_legoService;
         connectToService(m_legoService);
+    }
+    else
+    {
+        qWarning() << "Expected service not found!";
     }
 }
 
@@ -144,6 +151,7 @@ void BluetoothController::writeLegoCharacteristic(const QByteArray& data)
         throw std::runtime_error("bluetooth LE service or LEGO charactistic are invalid");
     }
 
+    qInfo() << "BluetoothController::writeLegoCharacteristic(" << data.toHex() << ")";
     m_leService->writeCharacteristic(m_leCharacteristic, data);
 }
 
@@ -151,8 +159,6 @@ void BluetoothController::serviceStateChanged(QLowEnergyService::ServiceState st
 {
     if (state == QLowEnergyService::ServiceDiscovered)
     {
-        qInfo() << "Service fully discovered";
-
         m_leCharacteristic = m_leService->characteristic(m_legoCharacteristic);
         if (!m_leCharacteristic.isValid())
         {
@@ -170,18 +176,18 @@ void BluetoothController::serviceStateChanged(QLowEnergyService::ServiceState st
 
 void BluetoothController::enableNotifications(void)
 {
-    qInfo() << "BluetoothController::enableNotifications()";
-
     auto notification = m_leCharacteristic.descriptor(QBluetoothUuid::ClientCharacteristicConfiguration);
     if (!notification.isValid())
     {
         qWarning() << "Notification descriptor not found!";
+        return;
     }
 
     connect(
         m_leService, &QLowEnergyService::characteristicChanged,
         this, &BluetoothController::characteristicChanged);
 
+    // m_leService->writeDescriptor(notification, QByteArray::fromHex("0000"));
     m_leService->writeDescriptor(notification, QByteArray::fromHex("0100"));
 }
 
