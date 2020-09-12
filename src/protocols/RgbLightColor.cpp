@@ -32,17 +32,17 @@ RgbLightColor rgbLightColorFromIdentifier(const QString& identifier)
 RgbLightColors getRgbLightColors(void)
 {
     return RgbLightColors({
-        RgbLightColor::AMBER,
-        RgbLightColor::BLUE,
-        RgbLightColor::CYAN,
-        RgbLightColor::GREEN,
-        RgbLightColor::OFF,
         RgbLightColor::PINK,
-        RgbLightColor::PURPLE,
         RgbLightColor::RED,
-        RgbLightColor::TURQUOISE,
+        RgbLightColor::AMBER,
         RgbLightColor::YELLOW,
+        RgbLightColor::GREEN,
+        RgbLightColor::TURQUOISE,
+        RgbLightColor::CYAN,
+        RgbLightColor::BLUE,
+        RgbLightColor::PURPLE,
         RgbLightColor::WHITE,
+        RgbLightColor::OFF,
     });
 }
 
