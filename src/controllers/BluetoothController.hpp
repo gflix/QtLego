@@ -17,6 +17,9 @@ public:
     void connectToDevice(const QBluetoothDeviceInfo& device);
     void disconnectFromDevice(void);
 
+public slots:
+    void sendMessage(const QByteArray& data);
+
 signals:
     void connected(void);
     void messageReceived(const QByteArray& data);
