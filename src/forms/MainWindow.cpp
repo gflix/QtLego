@@ -153,6 +153,9 @@ void MainWindow::processLeMessageHubAttachedIo(
     if (childDialog)
     {
         connect(
+            childDialog, &GenericChildDialog::sendMessage,
+            &m_bluetoothController, &BluetoothController::sendMessage);
+        connect(
             &m_bluetoothController, &BluetoothController::messageReceived,
             childDialog, &GenericChildDialog::messageReceived);
         childDialog->show();

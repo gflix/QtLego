@@ -18,6 +18,9 @@ public:
 public slots:
     void messageReceived(const QByteArray& data);
 
+signals:
+    void sendMessage(const QByteArray& data);
+
 protected:
 
 private:
