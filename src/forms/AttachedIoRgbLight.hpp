@@ -2,6 +2,7 @@
 #define FORMS_ATTACHEDIORGBLIGHT_HPP_
 
 #include <forms/GenericChildDialog.hpp>
+#include <models/lists/RgbLightColorList.hpp>
 
 namespace Ui {
     class AttachedIoRgbLight;
@@ -20,11 +21,15 @@ public:
 
 public slots:
     void messageReceived(const QByteArray& data);
+    void rgbLightColorChanged(int index);
 
 protected:
 
 private:
     Ui::AttachedIoRgbLight* m_ui;
+    RgbLightColorList m_rgbLightColorList;
+
+    void fixupUi(void);
 };
 
 } /* namespace Lego */
