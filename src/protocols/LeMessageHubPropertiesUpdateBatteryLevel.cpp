@@ -5,7 +5,10 @@
 namespace Lego
 {
 
-LeMessage decodeLeMessageHubPropertiesUpdateBatteryLevel(int property, int operation, const QByteArray& data)
+LeMessage decodeLeMessageHubPropertiesUpdateBatteryLevel(
+    HubProperty property,
+    HubPropertyOperation operation,
+    const QByteArray& data)
 {
     auto dataSize = data.size();
     if (dataSize < 1)

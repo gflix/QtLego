@@ -5,7 +5,10 @@
 namespace Lego
 {
 
-LeMessage decodeLeMessageHubPropertiesUpdateAdvertisingName(int property, int operation, const QByteArray& data)
+LeMessage decodeLeMessageHubPropertiesUpdateAdvertisingName(
+    HubProperty property,
+    HubPropertyOperation operation,
+    const QByteArray& data)
 {
     auto message = new LeMessageHubPropertiesUpdateAdvertisingName();
     LeMessage leMessage { message };

@@ -4,8 +4,8 @@ namespace Lego
 {
 
 GenericLeMessageHubProperties::GenericLeMessageHubProperties():
-    property(0),
-    operation(0)
+    property(HubProperty::UNKNOWN),
+    operation(HubPropertyOperation::UNKNOWN)
 {
 }
 
