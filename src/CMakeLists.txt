@@ -17,6 +17,7 @@ set(
     models/LeMessageHubPropertiesUpdateSystemType.cpp
     models/QBluetoothAddresses.cpp
     models/QBluetoothDeviceInfos.cpp
+    models/RgbLightColor.cpp
     models/SystemType.cpp
     protocols/GenericLeMessage.cpp
     protocols/GenericLeMessageHubAttachedIo.cpp
@@ -30,6 +31,7 @@ set(
     protocols/LeMessageHubPropertiesUpdateBatteryLevel.cpp
     protocols/LeMessageHubPropertiesUpdateButton.cpp
     protocols/LeMessageHubPropertiesUpdateSystemType.cpp
+    protocols/RgbLightColor.cpp
     protocols/SystemType.cpp
     utils/Converter.cpp
     utils/EnumMapper.cpp
@@ -62,6 +64,7 @@ add_executable(
     controllers/BluetoothController.cpp
     controllers/BluetoothDiscoveryController.cpp
     models/lists/BluetoothDeviceList.cpp
+    models/lists/RgbLightColorList.cpp
     forms/AttachedIoRgbLight.cpp
     forms/DeviceSelection.cpp
     forms/GeneralInformation.cpp
