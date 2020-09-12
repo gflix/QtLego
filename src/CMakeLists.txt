@@ -14,8 +14,10 @@ set(
     models/LeMessageHubPropertiesUpdateAdvertisingName.cpp
     models/LeMessageHubPropertiesUpdateBatteryLevel.cpp
     models/LeMessageHubPropertiesUpdateButton.cpp
+    models/LeMessageHubPropertiesUpdateSystemType.cpp
     models/QBluetoothAddresses.cpp
     models/QBluetoothDeviceInfos.cpp
+    models/SystemType.cpp
     protocols/GenericLeMessage.cpp
     protocols/GenericLeMessageHubAttachedIo.cpp
     protocols/GenericLeMessageHubProperties.cpp
@@ -27,6 +29,8 @@ set(
     protocols/LeMessageHubPropertiesUpdateAdvertisingName.cpp
     protocols/LeMessageHubPropertiesUpdateBatteryLevel.cpp
     protocols/LeMessageHubPropertiesUpdateButton.cpp
+    protocols/LeMessageHubPropertiesUpdateSystemType.cpp
+    protocols/SystemType.cpp
     utils/Converter.cpp
     utils/EnumMapper.cpp
 )
