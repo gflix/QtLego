@@ -1,7 +1,10 @@
 #include <QtCore/QDebug>
 #include <QtWidgets/QMessageBox>
+#include <forms/AttachedIoRgbLight.hpp>
 #include <forms/DeviceSelection.hpp>
 #include <forms/MainWindow.hpp>
+#include <models/LeMessageHubAttachedIo.hpp>
+#include <protocols/GenericLeMessage.hpp>
 #include "ui_MainWindow.h"
 
 namespace Lego
@@ -65,6 +68,21 @@ void MainWindow::deviceConnected(void)
     createGeneralInformationDialog();
 }
 
+void MainWindow::messageReceived(const QByteArray& data)
+{
+    try
+    {
+        auto leMessage = decodeLeMessage(data);
+        if (auto message = cast<LeMessageHubAttachedIo>(leMessage))
+        {
+            processLeMessageHubAttachedIo(*message);
+        }
+    }
+    catch(const std::exception&)
+    {
+    }
+}
+
 void MainWindow::fixupUi(void)
 {
     connect(
@@ -73,6 +91,9 @@ void MainWindow::fixupUi(void)
     connect(
         &m_bluetoothController, &BluetoothController::connected,
         this, &MainWindow::deviceConnected);
+    connect(
+        &m_bluetoothController, &BluetoothController::messageReceived,
+        this, &MainWindow::messageReceived);
 }
 
 void MainWindow::createGeneralInformationDialog(void)
@@ -96,6 +117,46 @@ void MainWindow::destroyChildDialogs(void)
         m_generalInformation->close();
         delete m_generalInformation;
         m_generalInformation = nullptr;
+    }
+
+    for (auto& attachedIoChildDialog: m_attachedIoChildDialogs)
+    {
+        if (attachedIoChildDialog)
+        {
+            attachedIoChildDialog->close();
+            delete attachedIoChildDialog;
+        }
+    }
+    m_attachedIoChildDialogs.clear();
+}
+
+void MainWindow::processLeMessageHubAttachedIo(
+    const LeMessageHubAttachedIo& message)
+{
+    if (m_attachedIoChildDialogs.contains(message.port))
+    {
+        throw std::runtime_error(
+            QString("port %1 has already assigned a child dialog").arg(message.port).toStdString());
+    }
+
+    GenericChildDialog* childDialog = nullptr;
+
+    switch (message.ioType)
+    {
+        case IoType::RGB_LIGHT:
+            childDialog = new AttachedIoRgbLight(this);
+            break;
+        default:
+            break;
+    }
+
+    if (childDialog)
+    {
+        connect(
+            &m_bluetoothController, &BluetoothController::messageReceived,
+            childDialog, &GenericChildDialog::messageReceived);
+        childDialog->show();
+        m_attachedIoChildDialogs[message.port] = childDialog;
     }
 }
 

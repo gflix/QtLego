@@ -12,4 +12,8 @@ GenericChildDialog::~GenericChildDialog()
 {
 }
 
+void GenericChildDialog::messageReceived(const QByteArray& data)
+{
+}
+
 } /* namespace Lego */
