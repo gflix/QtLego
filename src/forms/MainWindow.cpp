@@ -62,12 +62,7 @@ void MainWindow::deviceDiscoveryFinished(void)
 void MainWindow::deviceConnected(void)
 {
     destroyChildDialogs();
-
-    m_generalInformation = new GeneralInformation(this);
-    connect(
-        &m_bluetoothController, &BluetoothController::messageReceived,
-        m_generalInformation, &GeneralInformation::messageReceived);
-    m_generalInformation->show();
+    createGeneralInformationDialog();
 }
 
 void MainWindow::fixupUi(void)
@@ -78,6 +73,20 @@ void MainWindow::fixupUi(void)
     connect(
         &m_bluetoothController, &BluetoothController::connected,
         this, &MainWindow::deviceConnected);
+}
+
+void MainWindow::createGeneralInformationDialog(void)
+{
+    if (m_generalInformation)
+    {
+        throw std::runtime_error("general information dialog already exists");
+    }
+
+    m_generalInformation = new GeneralInformation(this);
+    connect(
+        &m_bluetoothController, &BluetoothController::messageReceived,
+        m_generalInformation, &GeneralInformation::messageReceived);
+    m_generalInformation->show();
 }
 
 void MainWindow::destroyChildDialogs(void)

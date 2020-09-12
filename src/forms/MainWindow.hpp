@@ -36,6 +36,7 @@ private:
     BluetoothController m_bluetoothController;
 
     void fixupUi(void);
+    void createGeneralInformationDialog(void);
     void destroyChildDialogs(void);
 };
 
