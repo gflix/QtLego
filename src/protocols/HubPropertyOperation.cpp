@@ -16,7 +16,7 @@ QString hubPropertyOperationToIdentifier(HubPropertyOperation value)
     return enumToIdentifierWithDefault(hubPropertyOperationIdentifierMapping, value, "UNKNOWN");
 }
 
-HubPropertyOperation hubPropertyFromIdentifier(const QString& identifier)
+HubPropertyOperation hubPropertyOperationFromIdentifier(const QString& identifier)
 {
     return enumFromIdentifierWithDefault(
         hubPropertyOperationIdentifierMapping,
