@@ -26,5 +26,22 @@ In a later step the protocol implementation may be moved into a separate library
 The tool was tested with the following devices:
 
 * Technic hub (bb0961c01),
-* Boost hub (bb0894c01),
+* Boost hub / LEGO Move hub (bb0894c01),
 * Mario figure (49242c01pb001)
+
+## Additional hints
+
+### Button state
+
+The tool subscribes on button events and shows the current state within the general information box. The tested devices
+behave a little bit different:
+
+* Technic hub: button event will occur on either pressing or releasing the green button; each transition leads to one
+  message
+* Boost hub: button event will occur on either pressing or releasing the green button; pressing the button will lead to
+  events, releasing the button leads to one event
+* Mario figure: button event will occur on either pressing or releasing the bluetooth paring button; each transistion
+  leas to on message
+
+For the Technic and the Boost hub pressing the green button for a longer time will shutdown the device. The Mario
+figure shuts down on pressing the power putton instead.
