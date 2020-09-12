@@ -1,6 +1,7 @@
 #include <protocols/GenericLeMessageHubProperties.hpp>
 #include <protocols/LeMessageHubPropertiesUpdateAdvertisingName.hpp>
 #include <protocols/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
+#include <protocols/LeMessageHubPropertiesUpdateButton.hpp>
 #include <utils/Converter.hpp>
 
 namespace Lego
@@ -26,6 +27,8 @@ LeMessage decodeLeMessageHubProperties(const QByteArray& data)
                 return decodeLeMessageHubPropertiesUpdateAdvertisingName(property, operation, payload);
             case HubProperty::BATTERY_LEVEL:
                 return decodeLeMessageHubPropertiesUpdateBatteryLevel(property, operation, payload);
+            case HubProperty::BUTTON:
+                return decodeLeMessageHubPropertiesUpdateButton(property, operation, payload);
         }
     }
 
