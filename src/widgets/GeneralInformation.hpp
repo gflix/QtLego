@@ -5,6 +5,7 @@
 #include <models/LeMessageHubPropertiesUpdateAdvertisingName.hpp>
 #include <models/LeMessageHubPropertiesUpdateBatteryLevel.hpp>
 #include <models/LeMessageHubPropertiesUpdateButton.hpp>
+#include <models/LeMessageHubPropertiesUpdateSystemType.hpp>
 
 namespace Ui {
     class GeneralInformation;
@@ -35,6 +36,8 @@ private:
         const LeMessageHubPropertiesUpdateBatteryLevel& message);
     void processLeMessageHubPropertiesUpdateButton(
         const LeMessageHubPropertiesUpdateButton& message);
+    void processLeMessageHubPropertiesUpdateSystemType(
+        const LeMessageHubPropertiesUpdateSystemType& message);
 };
 
 } /* namespace Lego */
