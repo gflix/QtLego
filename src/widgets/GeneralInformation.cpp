@@ -1,5 +1,6 @@
 #include <QtCore/QDebug>
 #include <protocols/GenericLeMessage.hpp>
+#include <protocols/SystemType.hpp>
 #include <widgets/GeneralInformation.hpp>
 #include "ui_GeneralInformation.h"
 
@@ -34,6 +35,10 @@ void GeneralInformation::messageReceived(const QByteArray& data)
         {
             processLeMessageHubPropertiesUpdateButton(*message);
         }
+        else if (auto message = tryCast<LeMessageHubPropertiesUpdateSystemType>(leMessage))
+        {
+            processLeMessageHubPropertiesUpdateSystemType(*message);
+        }
     }
     catch(const std::exception&)
     {
@@ -56,6 +61,12 @@ void GeneralInformation::processLeMessageHubPropertiesUpdateButton(
     const LeMessageHubPropertiesUpdateButton& message)
 {
     m_ui->lbButton->setText(message.pressed ? "pressed" : "depressed");
+}
+
+void GeneralInformation::processLeMessageHubPropertiesUpdateSystemType(
+    const LeMessageHubPropertiesUpdateSystemType& message)
+{
+    m_ui->lbSystemType->setText(systemTypeToIdentifier(message.systemType));
 }
 
 } /* namespace Lego */
