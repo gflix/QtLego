@@ -30,6 +30,10 @@ void GeneralInformation::messageReceived(const QByteArray& data)
         {
             processLeMessageHubPropertiesUpdateBatteryLevel(*message);
         }
+        else if (auto message = tryCast<LeMessageHubPropertiesUpdateButton>(leMessage))
+        {
+            processLeMessageHubPropertiesUpdateButton(*message);
+        }
     }
     catch(const std::exception&)
     {
@@ -46,6 +50,12 @@ void GeneralInformation::processLeMessageHubPropertiesUpdateBatteryLevel(
     const LeMessageHubPropertiesUpdateBatteryLevel& message)
 {
     m_ui->lbBatteryPercentage->setText(QString("%1%").arg(message.batteryLevel));
+}
+
+void GeneralInformation::processLeMessageHubPropertiesUpdateButton(
+    const LeMessageHubPropertiesUpdateButton& message)
+{
+    m_ui->lbButton->setText(message.pressed ? "pressed" : "depressed");
 }
 
 } /* namespace Lego */

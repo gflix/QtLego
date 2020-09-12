@@ -33,6 +33,8 @@ private:
         const LeMessageHubPropertiesUpdateAdvertisingName& message);
     void processLeMessageHubPropertiesUpdateBatteryLevel(
         const LeMessageHubPropertiesUpdateBatteryLevel& message);
+    void processLeMessageHubPropertiesUpdateButton(
+        const LeMessageHubPropertiesUpdateButton& message);
 };
 
 } /* namespace Lego */
