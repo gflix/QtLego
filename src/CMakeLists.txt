@@ -62,6 +62,7 @@ add_executable(
     controllers/BluetoothController.cpp
     controllers/BluetoothDiscoveryController.cpp
     models/lists/BluetoothDeviceList.cpp
+    forms/AttachedIoRgbLight.cpp
     forms/DeviceSelection.cpp
     forms/GeneralInformation.cpp
     forms/GenericChildDialog.cpp
