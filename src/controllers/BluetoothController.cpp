@@ -164,6 +164,7 @@ void BluetoothController::serviceStateChanged(QLowEnergyService::ServiceState st
         writeLegoCharacteristic(QByteArray::fromHex("0500010605"));  // request battery level
         writeLegoCharacteristic(QByteArray::fromHex("0500010105"));  // request advertised name
         writeLegoCharacteristic(QByteArray::fromHex("0500010b05"));  // request device type
+        writeLegoCharacteristic(QByteArray::fromHex("0500010202"));  // enable button updates
     }
 }
 
