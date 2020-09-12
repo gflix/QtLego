@@ -1,6 +1,7 @@
 #ifndef FORMS_GENERICCHILDDIALOG_HPP_
 #define FORMS_GENERICCHILDDIALOG_HPP_
 
+#include <QtCore/QList>
 #include <QtWidgets/QDialog>
 
 namespace Lego
@@ -19,6 +20,8 @@ protected:
 private:
 
 };
+
+typedef QList<GenericChildDialog*> ChildDialogs;
 
 } /* namespace Lego */
 
