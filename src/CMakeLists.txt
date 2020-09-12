@@ -6,6 +6,8 @@ set(
     models/GenericLeMessage.cpp
     models/GenericLeMessageHubAttachedIo.cpp
     models/GenericLeMessageHubProperties.cpp
+    models/HubProperty.cpp
+    models/HubPropertyOperation.cpp
     models/IoType.cpp
     models/LeMessageHubAttachedIo.cpp
     models/LeMessageHubDetachedIo.cpp
@@ -16,6 +18,8 @@ set(
     protocols/GenericLeMessage.cpp
     protocols/GenericLeMessageHubAttachedIo.cpp
     protocols/GenericLeMessageHubProperties.cpp
+    protocols/HubProperty.cpp
+    protocols/HubPropertyOperation.cpp
     protocols/IoType.cpp
     protocols/LeMessageHubAttachedIo.cpp
     protocols/LeMessageHubDetachedIo.cpp
