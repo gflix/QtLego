@@ -43,6 +43,8 @@ private:
 
     void connectToService(const QBluetoothUuid& uuid);
     void disconnectFromService(void);
+
+    void writeLegoCharacteristic(const QByteArray& data);
 };
 
 } /* namespace Lego */
